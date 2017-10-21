@@ -24,7 +24,9 @@ function printBoard() {
 }
 
 function horizontalWin() {
-  // Your code here
+  if(board[['x','x','x']]){
+    console.log("play 1 wins");
+  }
 }
 
 function verticalWin() {
