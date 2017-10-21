@@ -10,7 +10,24 @@ const rl = readline.createInterface({
 
 function pigLatin(word) {
 
-  // Your code here
+  //creat global const 'vowels' that is equal to the array a,e,i,o,u   .... .match() regex expressions
+const vowels = [/aeiou/]
+
+
+  //create const disassembledInput that takes users input and dismantles it using split()
+
+splitWord =
+
+  //create function that compares the disassembledInput to the .indexof of the vowels array using match
+
+
+
+  // function that if first letter is found in the vowels array, add 'ay' to the end of the final string LOOK UP ARRAY MDN
+
+
+
+
+  //create funtion that takes all the previous letters in the disassembledInput array and adds them to the end of the final string plus 'ay'.
 
 }
 
