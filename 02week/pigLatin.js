@@ -11,7 +11,7 @@ const rl = readline.createInterface({
 
 const  pigLatin = (word) => {
 
-  // take input word and trim using .trim() and .tolowercase()
+  // take input word and trim using .trim() and .tolowercase() dfdfdf
 word = word.trim().toLowerCase();
 
 //find all vowels by using .match() then specify first by [0]
