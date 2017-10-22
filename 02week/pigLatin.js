@@ -8,28 +8,37 @@ const rl = readline.createInterface({
 });
 
 
-function pigLatin(word) {
 
-  //creat global const 'vowels' that is equal to the array a,e,i,o,u   .... .match() regex expressions
-const vowels = [/aeiou/]
+const  pigLatin = (word) => {
 
+  // take input word and trim using .trim() and .tolowercase()
+word = word.trim().toLowerCase();
 
-  //create const disassembledInput that takes users input and dismantles it using split()
+//find all vowels by using .match() then specify first by [0]
+const findFirstVowelInWord = word.match(/[aeiouy]/gi)[0];
 
-splitWord =
-
-  //create function that compares the disassembledInput to the .indexof of the vowels array using match
-
-
-
-  // function that if first letter is found in the vowels array, add 'ay' to the end of the final string LOOK UP ARRAY MDN
+//find the position of the first vowel using .indexOf()
+const indexFirstVowel = word.indexOf(findFirstVowelInWord);
 
 
 
 
-  //create funtion that takes all the previous letters in the disassembledInput array and adds them to the end of the final string plus 'ay'.
-
+if(findFirstVowelInWord === null){
+  return console.log(findFirstVowelInWord);
 }
+// if the words first vowel is the first letter, return the word + 'yay'
+if(indexFirstVowel === 0){
+  return word + 'yay';
+}
+
+//if the words first vowel is not the first letter, take the first letters of the word up to the first vowel, move them to the back, and add 'ay' to the end of it.
+else if (indexFirstVowel > 0){
+  return word.slice(indexFirstVowel) + word.slice(0, indexFirstVowel) + 'ay';
+}
+}
+
+pigLatin(' Cactus');
+
 
 
 function getPrompt() {
