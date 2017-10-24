@@ -8,4 +8,4 @@ const printListOfOlympians = (arr) => {
 }
 
 
-printListOfOlympians(arr);
+printListOfOlympians(['mike','john','adam','ana','jess']);
