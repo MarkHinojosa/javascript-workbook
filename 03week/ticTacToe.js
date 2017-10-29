@@ -27,7 +27,12 @@ function printBoard() {
 function horizontalWin() {
   if(board[0][0] === board[0][1] ){
     if(board[0][0] === board[0][2]){
-      console.log(playerTurn + " wins");
+      console.log(playerTurn + " wins"),
+      board = [
+        [' ', ' ', ' '],
+        [' ', ' ', ' '],
+        [' ', ' ', ' ']
+      ];
     }
 
   }
