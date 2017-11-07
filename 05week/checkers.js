@@ -91,20 +91,29 @@ function Game() {
     // Your code here
 
     this.moveChecker = (whichPiece, toWhere) => {
-      let whichPieceRow = [];
-      let whichPieceColumn = [];
-      whichPieceRow = whichPiece.split('')[0];
-      whichPieceColumn = whichPiece.split('')[1];
-      let toWhereRow = [];
-      let toWhereColumn = [];
-      toWhereRow = toWhere.split('')[0];
-      toWhereColumn = toWhere.split('')[1];
+      let whichPieceRow = parseInt(whichPiece.split('')[0]);
+      let whichPieceColumn = parseInt(whichPiece.split('')[1]);
+      let toWhereRow = parseInt(toWhere.split('')[0]);
+      let toWhereColumn = parseInt(toWhere.split('')[1]);
       let moveFrom = this.board.grid[whichPieceRow][whichPieceColumn];
       let moveTo = game.board.grid[toWhereRow][toWhereColumn];
       // moveTo = moveFrom;
       // moveFrom = null;
-      game.board.grid[toWhereRow].splice([toWhereColumn],1,moveFrom)
-    
+      console.log(whichPieceRow)
+      console.log(toWhereRow + 1)
+      //check valid vertical movement
+      if(toWhereRow === whichPieceRow + 1){
+        //check valid horizontal movement
+        if(toWhereColumn === whichPieceColumn + 1 || toWhereColumn === whichPieceColumn - 1){
+          game.board.grid[toWhereRow].splice([toWhereColumn],1,moveFrom)
+        this.board.grid[whichPieceRow][whichPieceColumn] = null;
+          console.log("ok to move")
+        }
+
+      }
+
+    //check valid horizontal move
+
     }
   };
 
