@@ -91,16 +91,13 @@ function Game() {
     // Your code here
 
     this.moveChecker = (whichPiece, toWhere) => {
+
       let whichPieceRow = parseInt(whichPiece.split('')[0]);
       let whichPieceColumn = parseInt(whichPiece.split('')[1]);
       let toWhereRow = parseInt(toWhere.split('')[0]);
       let toWhereColumn = parseInt(toWhere.split('')[1]);
       let moveFrom = this.board.grid[whichPieceRow][whichPieceColumn];
       let moveTo = game.board.grid[toWhereRow][toWhereColumn];
-      // moveTo = moveFrom;
-      // moveFrom = null;
-      console.log(whichPieceRow)
-      console.log(toWhereRow + 1)
       //check valid vertical movement
       if(toWhereRow === whichPieceRow + 1){
         //check valid horizontal movement
@@ -108,6 +105,9 @@ function Game() {
           game.board.grid[toWhereRow].splice([toWhereColumn],1,moveFrom)
         this.board.grid[whichPieceRow][whichPieceColumn] = null;
           console.log("ok to move")
+          class whitePlayer{
+
+          }
         }
 
       }
