@@ -12,8 +12,7 @@ function Checker(color) {
   if (color === 'white') {
     this.symbol = String.fromCharCode(0x125CF);
     this.color = 'white';
-  }
-  else {
+  } else {
     this.symbol = String.fromCharCode(0x125CB);
     this.color = 'black';
   }
@@ -80,6 +79,7 @@ function Board() {
 
   // Your code here
 }
+
 function Game() {
 
   this.board = new Board();
@@ -88,7 +88,7 @@ function Game() {
     this.board.createGrid();
     this.board.populateGrid();
 
-    // Your code here
+    //starts here
 
     this.moveChecker = (whichPiece, toWhere) => {
 
@@ -98,27 +98,38 @@ function Game() {
       let toWhereColumn = parseInt(toWhere.split('')[1]);
       let moveFrom = this.board.grid[whichPieceRow][whichPieceColumn];
       let moveTo = game.board.grid[toWhereRow][toWhereColumn];
-      //check valid vertical movement
-      if(toWhereRow === whichPieceRow + 1){
-        //check valid horizontal movement
-        if(toWhereColumn === whichPieceColumn + 1 || toWhereColumn === whichPieceColumn - 1){
-          game.board.grid[toWhereRow].splice([toWhereColumn],1,moveFrom)
-        this.board.grid[whichPieceRow][whichPieceColumn] = null;
-          console.log("ok to move")
-          class whitePlayer{
 
+      //white checkers valid movements
+
+      if (moveFrom.color === 'white') {
+        //must move top to bottom
+        if (toWhereRow === whichPieceRow + 1) {
+          //must move left or right
+          if (toWhereColumn === whichPieceColumn + 1 || toWhereColumn === whichPieceColumn - 1) {
+            // if there is a black,
+            game.board.grid[toWhereRow].splice([toWhereColumn], 1, moveFrom)
+            this.board.grid[whichPieceRow][whichPieceColumn] = null;
+            console.log("ok to move white")
           }
         }
+      }else if (moveFrom.color === 'black') {
 
+// black checkers valid movements
+
+          if (toWhereRow === whichPieceRow - 1) {
+            if (toWhereColumn === whichPieceColumn + 1 || toWhereColumn === whichPieceColumn - 1) {
+              //
+              game.board.grid[toWhereRow].splice([toWhereColumn], 1, moveFrom)
+              this.board.grid[whichPieceRow][whichPieceColumn] = null;
+              console.log("ok to move black")
       }
-
-    //check valid horizontal move
-
     }
-  };
-
+  }else {
+    return 'please select move piece'
+  }
 }
-
+}
+}
 function getPrompt() {
   game.board.viewGrid();
   rl.question('which piece?: ', (whichPiece) => {
@@ -145,8 +156,8 @@ if (typeof describe === 'function') {
     });
   });
 
-  describe('Game.moveChecker()', function () {
-    it('should move a checker', function () {
+  describe('Game.moveChecker()', function() {
+    it('should move a checker', function() {
       assert(!game.board.grid[4][1]);
       game.moveChecker('50', '41');
       assert(game.board.grid[4][1]);
