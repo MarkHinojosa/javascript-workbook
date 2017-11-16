@@ -16,7 +16,7 @@ timelineData:[
 ]
 }
 newState = {
-  
+
 }
 handleClick = () =>{
   return console.log('clicked');
@@ -38,5 +38,5 @@ render() {
 return this.renderPosts();
 }
 }
-
+//
 export default App;
