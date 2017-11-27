@@ -16,10 +16,13 @@ timelineData:[
 ]
 }
 newState = {
-
+ value: 1
 }
-handleClick = () =>{
-  return console.log('clicked');
+
+handleClick = (who) =>{
+ if(who === 'stevie'){
+   console.log(who)
+ }
 }
 renderPosts = () => {
 
@@ -27,7 +30,7 @@ return this.state.timelineData.map((item, key) => {
 return (
 <div>
 <p>{item.post}</p> <p>{item.name}</p>
-<a onClick={this.handleClick}><button>like</button></a>
+<a onClick={this.handleClick(item.name)}><button>like</button></a>
 </div>
 );
 
