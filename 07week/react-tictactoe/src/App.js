@@ -26,15 +26,52 @@ class App extends Component {
      }
    }
 
-   //check for win
+   //check for horizontal first row win
    const currentGrid = this.state.grid;
-   if(currentGrid[0] === currentGrid[1] && currentGrid[1] === currentGrid[2]){
+   if(currentGrid[0] === this.state.playerTurn && currentGrid[1] === this.state.playerTurn && currentGrid[2] === this.state.playerTurn){
      this.setState({gameOver: true})
-     alert('winner')
+     alert(this.state.playerTurn + ' is the winner')
    }
+   //check for hoizontal middle row win
+   if(currentGrid[3] === this.state.playerTurn && currentGrid[4] === this.state.playerTurn && currentGrid[5] === this.state.playerTurn){
+     this.setState({gameOver: true})
+     alert(this.state.playerTurn + ' is the winner')
+   }
+   //check for horizontal bottom row win
+   if(currentGrid[6] === this.state.playerTurn && currentGrid[7] === this.state.playerTurn && currentGrid[8] === this.state.playerTurn){
+     this.setState({gameOver: true})
+     alert(this.state.playerTurn + ' is the winner')
+   }
+   //check for win, left column
+   if(currentGrid[0] === this.state.playerTurn && currentGrid[3] === this.state.playerTurn && currentGrid[6] === this.state.playerTurn){
+     this.setState({gameOver: true})
+     alert(this.state.playerTurn + ' is the winner')
+   }
+   //check for win, middle column
+   if(currentGrid[1] === this.state.playerTurn && currentGrid[4] === this.state.playerTurn && currentGrid[7] === this.state.playerTurn){
+     this.setState({gameOver: true})
+     alert(this.state.playerTurn + ' is the winner')
+   }
+   //check for win, right column
+   if(currentGrid[2] === this.state.playerTurn && currentGrid[5] === this.state.playerTurn && currentGrid[8] === this.state.playerTurn){
+     this.setState({gameOver: true})
+     alert(this.state.playerTurn + ' is the winner')
+   }
+   //check for win, horizontal left to right
+   if(currentGrid[0] === this.state.playerTurn && currentGrid[4] === this.state.playerTurn && currentGrid[8] === this.state.playerTurn){
+     this.setState({gameOver: true})
+     alert(this.state.playerTurn + ' is the winner')
+   }
+
+     //check for win, horizontal right to left
+     if(currentGrid[2] === this.state.playerTurn && currentGrid[4] === this.state.playerTurn && currentGrid[6] === this.state.playerTurn){
+       this.setState({gameOver: true})
+       alert(this.state.playerTurn + ' is the winner')
+     }
+     //game over, reset
    if(this.state.gameOver === true){
-     this.state.grid = {};
-     this.state.gameOver = false;
+     this.setState({grid: {}});
+     this.setState({gameOver: false})
    }
   }
 
@@ -57,7 +94,6 @@ class App extends Component {
             <div className="playBox" onClick={() => this.handleClickEvent(6)}>{this.state.grid[6]}</div>
             <div className="playBox" onClick={() => this.handleClickEvent(7)}>{this.state.grid[7]}</div>
             <div className="playBox" onClick={() => this.handleClickEvent(8)}>{this.state.grid[8]}</div>
-            <div className="playBox">{this.state.gameOver}</div>
           </div>
         </div>
     );
