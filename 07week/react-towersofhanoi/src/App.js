@@ -5,46 +5,38 @@ import './App.css';
 class App extends Component {
   state={
 
-    grid: [
-      [100,75,50,25],
-      [],
-      []
-    ],
+      a:[100,75,50,25],
+      b:[],
+      c:[],
       popped: 0
   }
 
-  handleClickEventStack(stack){
-  const lengthMinusOne = this.state.grid[stack].length - 1;
-    const lastInStack = this.state.grid[stack][lengthMinusOne];
-
-    if(this.state.popped === 0 && lastInStack > 0){
-      let x = this.state.grid[stack].pop();
-      this.setState({popped: x})
-      console.log('line 22' + this.state.popped + x)
-    }
-
-    if(this.state.popped > 0){
-      if(this.state.popped < lastInStack || lengthMinusOne === 0){
-        let y = this.state.popped;
-        this.setState({grid: [stack][y] })
-
+  handleClickEventStack(stack, letter){
+    let stackLength = stack.length;
+    let lastInStack = stack[stack.length-1];
+    console.log(lastInStack)
+    console.log(stackLength)
+      if( stack.length > 0 && this.state.popped === 0 ){
+         let x = stack.pop();
+         this.setState( { popped: x } )
+       }
+      if(this.state.popped > 0){
+        if(this.state.popped < lastInStack || stackLength === 0){
+          let x = this.state.popped;
+          console.log( x + 'this is popped' );
+          stack.push(x);
+          this.setState( { popped : 0 } );
+        }
+        // //HOW DO I PASS THE STACK ARGUMENT FROM THE dataStack DIV???
       }
-    }
   }
-  renderGrid(){
-    return this.state.grid.map((data, key) =>{
-      return (
-        <div classname="dataStack" key={key}>
-
-        </div>
-
-      )
-    })
-    }
   render() {
+    let a = a;
+    let b = this.state.b;
+    let c = this.state.c;
     return (
       <div>
-        <div className="dataStack" onClick={() => this.handleClickEventStack(0)}>
+        <div className="dataStack"  onClick={() => this.handleClickEventStack(this.state.a, a)}>
           <h1>A</h1>
           <div className="dataBlock-100">
           </div>
@@ -56,10 +48,10 @@ class App extends Component {
           <div className="dataBlock-25">
           </div>
         </div>
-        <div className="dataStack" onClick={() => this.handleClickEventStack(1)}>
+        <div className="dataStack" key='b' onClick={() => this.handleClickEventStack(this.state.b, 'b')}>
         <h1>B</h1>
         </div>
-        <div className="dataStack" onClick={() => this.handleClickEventStack(2)}>
+        <div className="dataStack" key='c' onClick={() => this.handleClickEventStack(this.state.c, 'c')}>
         <h1>C</h1>
         </div>
       </div>
