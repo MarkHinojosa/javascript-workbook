@@ -9,41 +9,36 @@ const rl = readline.createInterface({
 
 
 
-const  pigLatin = (word) => {
+const pigLatin = (word) => {
+
+
+  const vowels = ['a', 'e', 'i', 'o', 'u'];
 
   // take input word and trim using .trim() and .tolowercase()
-word = word.trim().toLowerCase();
+  word = word.trim().toLowerCase();
+  let splitWord = word.split('');
+  let filtered = splitWord.filter(letter => vowels.indexOf(letter) > -1);
 
-//find all vowels by using .match() then specify first by [0]
-const findFirstVowelInWord = word.match(/[aeiouy]/gi)[0];
+  //find the position of the first vowel using .indexOf()
+  const indexFirstVowel = word.indexOf(filtered[0]);
 
-//find the position of the first vowel using .indexOf()
-const indexFirstVowel = word.indexOf(findFirstVowelInWord);
+  // if the words first vowel is the first letter, return the word + 'yay'
+  if (indexFirstVowel === 0) {
+    return word + 'yay';
+  }
 
-
-
-
-if(findFirstVowelInWord === null){
-  return console.log(findFirstVowelInWord);
+  //if the words first vowel is not the first letter, take the first letters of the word up to the first vowel, move them to the back, and add 'ay' to the end of it.
+  else {
+    return splitWord.slice(indexFirstVowel).join('') + splitWord.slice(0, indexFirstVowel).join('') + 'ay';
+  }
 }
-// if the words first vowel is the first letter, return the word + 'yay'
-if(indexFirstVowel === 0){
-  return word + 'yay';
-}
-
-//if the words first vowel is not the first letter, take the first letters of the word up to the first vowel, move them to the back, and add 'ay' to the end of it.
-else if (indexFirstVowel > 0){
-  return word.slice(indexFirstVowel) + word.slice(0, indexFirstVowel) + 'ay';
-}
-}
-
 pigLatin(' Cactus');
 
 
 
 function getPrompt() {
   rl.question('word ', (answer) => {
-    console.log( pigLatin(answer) );
+    console.log(pigLatin(answer));
     getPrompt();
   });
 }
@@ -70,8 +65,4 @@ if (typeof describe === 'function') {
       assert.equal(pigLatin(' RoCkEt'), 'ocketray');
     });
   });
-} else {
-
-  getPrompt();
-
 }
