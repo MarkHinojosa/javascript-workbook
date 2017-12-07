@@ -11,23 +11,32 @@ class App extends Component {
     super(props)
     this.state = {
       selection : "default",
+      characters: null,
     }
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentWillmount() {
-    Api.get()
+  componentDidMount() {
+    const that = this;
+    fetch('https://swapi.co/api/people/').then((response) => response.json()).then((responseJson) => {
+      console.log("line22")
+      that.setState({characters: responseJson.results})
+    })
+    .catch((error) => {
+      console.error(error);
+    })
   }
 
   handleThis = () => {
-    console.log("this")
+    let newArr = [];
+    newArr.push(this.state.characters.map(nombre => nombre.name).push(newArr)),
+    console.log(this.state.characters.map(nombre => nombre.name))
   }
 
   handleChange(e,f) {
     this.setState({selection : f })
   }
   render() {
-    console.log('render');
 
 
     return (
