@@ -12,7 +12,7 @@ class App extends Component {
     super(props);
     this.state ={
       choice: "test",
-      data: "",
+      data: [],
 
     }
     this.handleOnChange.bind(this);
@@ -23,14 +23,15 @@ class App extends Component {
   componentDidMount(){
    const that = this;
    fetch('https://swapi.co/api/planets/')
-       .then((response) => response.json())
-       .then((responseJson) => {
-           that.setState({data: responseJson.results})
-       })
-       .catch((error) => {
-           console.error(error);
-       });
-     }
+   .then((response) => response.json())
+   .then((responseJson) => {
+       that.setState({data: responseJson.results})
+   })
+   .then(() => console.log(this.state.data[0].name))
+   .catch((error) => {
+       console.error(error);
+   });
+ }
 
   handleOnChange = (e,f) => {
     const that = this;
@@ -40,24 +41,21 @@ class App extends Component {
      console.log(decision)
 
     fetch(decision)
-        .then((response) => response.json())
-        .then((responseJson) => {
-            that.setState({data: responseJson.results})
-        })
-        .catch((error) => {
-            console.error(error);
-        });
+    .then((response) => response.json())
+    .then((responseJson) => {
+        that.setState({data: responseJson.results})
+    })
+    .catch((error) => {
+        console.error(error);
+    });
   }
 
   renderSelection(){
-    let poop = this.state.data;
-    console.log(this.state.data[0])
-      return (
-        <div> render names here
-
-        </div>
-      )
-
+    if(this.state.data[0]){
+      return <div>{this.state.data.map((key, index) => console.log(key))}</div>
+    } else {
+      return <div>loading...</div>
+    }
   }
 
 
