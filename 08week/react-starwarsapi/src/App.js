@@ -11,7 +11,7 @@ class App extends Component {
   constructor (props) {
     super(props);
     this.state ={
-      choice: "test",
+      choice: "planets",
       data: [],
 
     }
@@ -27,32 +27,24 @@ class App extends Component {
    .then((responseJson) => {
        that.setState({data: responseJson.results})
    })
-   .then(() => console.log(this.state.data[0].name))
    .catch((error) => {
        console.error(error);
    });
  }
 
   handleOnChange = (e,f) => {
-    const that = this;
-    this.setState({choice: f});
-     const decision = 'https://swapi.co/api/' + this.state.choice + "/";
 
-     console.log(decision)
-
-    fetch(decision)
-    .then((response) => response.json())
-    .then((responseJson) => {
-        that.setState({data: responseJson.results})
-    })
-    .catch((error) => {
-        console.error(error);
-    });
-  }
+    if(this.state.choice){
+      console.log(this.state.choice)
+    }else{  this.setState({choice: f})}
+if(this.state.choice === f){
+  console.log("line 38")
+}
+}
 
   renderSelection(){
     if(this.state.data[0]){
-      return <div>{this.state.data.map((key, index) => console.log(key))}</div>
+      return <div>{this.state.data.map((key, index) => <div>{key.name}</div>)}</div>
     } else {
       return <div>loading...</div>
     }
@@ -76,7 +68,7 @@ class App extends Component {
             <img src={logo} className="App-logo" alt="logo" />
             <h1 className="App-title">Welcome to React</h1>
           </header>
-          <RadioButtonGroup name="shipSpeed" defaultSelected="movies"
+          <RadioButtonGroup name="shipSpeed" defaultSelected="planets"
           onChange={this.handleOnChange}>
               <RadioButton
               value="planets"
