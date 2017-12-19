@@ -1,66 +1,67 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
 
 class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      selection : "default",
-      characters: null,
+      stories:{},
+      authors:[""],
     }
-    this.handleChange = this.handleChange.bind(this);
+    this.articles= []
+    this.handleThis.bind(this)
   }
-
   componentDidMount() {
-    const that = this;
-    fetch('https://swapi.co/api/people/').then((response) => response.json()).then((responseJson) => {
-      console.log("line22")
-      that.setState({characters: responseJson.results})
-    })
-    .catch((error) => {
-      console.error(error);
+    const newLinks = [];
+    fetch('https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty')
+    .then(res => res.json())
+    .then(stories => {
+      for (let i = 0; i < 10; i++) {
+        fetch(`https://hacker-news.firebaseio.com/v0/item/${stories[i]}.json?print=pretty`)
+        .then(res => res.json())
+        .then(article => newLinks.push(article))
+        .then(() => {
+          this.setState({
+            links: newLinks,
+            authors: []
+          })
+        })
+      }
     })
   }
-
   handleThis = () => {
-    let newArr = [];
-    newArr.push(this.state.characters.map(nombre => nombre.name).push(newArr)),
-    console.log(this.state.characters.map(nombre => nombre.name))
+    let authorArr = []
+    if(this.state.links.length === 10){
+      return this.state.links.map((article) => {
+        authorArr.push(article.by)
+        this.setState({ authors: authorArr })
+        return <li>article.by</li>
+      })
+    }
   }
-
-  handleChange(e,f) {
-    this.setState({selection : f })
+  renderAuthors(){
+    const mapper = this.state.authors.map((author) =>   <li>{author}</li>);
+    return (
+      <ul>{mapper}</ul>
+    )
   }
   render() {
-
-
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Click the Button Below To       Display TOP 10 Authors Of HACKERNEWS!
+          </h1>
         </header>
         <div>
-        <RaisedButton label="Default"
-          onClick={e => this.handleThis(e)}
+          <RaisedButton label="Display Authors"
+            onClick={e => this.handleThis(e)}
           />
+          <h1>
+            {this.renderAuthors()}
+          </h1>
         </div>
-      <RadioButtonGroup name="shipSpeed" defaultSelected="not_light" onChange={this.handleChange}>
-       <RadioButton
-         value="light"
-         label="b"
-       />
-
-     <RadioButton
-       value="dark"
-       label="c"
-     />
-
-     </RadioButtonGroup>
       </div>
     );
   }
